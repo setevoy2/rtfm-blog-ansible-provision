@@ -1,0 +1,19 @@
+- name: Install Nginx
+  package:
+    name: nginx
+    state: latest
+
+- name: Replace NGINX config
+  template: 
+    src=templates/nginx.conf
+    dest=/etc/nginx/nginx.conf
+
+- name: Add NGINX {{ inventory_hostname }} virtualhost config
+  template:
+    src=templates/virtualhosts/{{ inventory_hostname }}.conf
+    dest=/etc/nginx/conf.d/{{ inventory_hostname }}.conf
+
+- name: Service NGINX reload
+  service: 
+    name=nginx 
+    state=reloaded
