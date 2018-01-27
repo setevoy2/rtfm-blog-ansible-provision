@@ -15,3 +15,19 @@
     destination: 0.0.0.0/0
     jump: MASQUERADE
 
+- name: Create IPTABLES config dir
+  file: path=/etc/iptables state=directory
+
+- name: Save IPTABLES rules
+  shell: "iptables-save > /etc/iptables/iptables.rules"
+
+- name: Create systemd-service iptables dir
+  file: path=/usr/lib/systemd/system state=directory
+
+- name: Copy IPTABLES systemd-file
+  copy:
+    src: files/iptables.service
+    dest: /usr/lib/systemd/system/iptables.service
+
+- name: IPTABLES enable
+  command: systemctl enable iptables.service
