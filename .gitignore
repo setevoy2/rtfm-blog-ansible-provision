@@ -1,3 +1,2 @@
-roles/nginx/templates/virtualhosts
 *.retry
 *.swp
