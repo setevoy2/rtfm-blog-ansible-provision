@@ -1,1 +1,2 @@
 - src: manala.logrotate
+- src: jnv.unattended-upgrades
