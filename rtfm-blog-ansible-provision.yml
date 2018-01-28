@@ -3,7 +3,7 @@
     true
   roles:
     - role: thefinn93.letsencrypt
-      letsencrypt_email: letsencrypt@setevoy.kiev.ua
+      letsencrypt_email: notify@setevoy.kiev.ua
       letsencrypt_cert_domains: 
         - "{{ inventory_hostname }}"
       letsencrypt_webroot_path: /var/www/html/
