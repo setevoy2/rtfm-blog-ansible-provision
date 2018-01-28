@@ -2,6 +2,22 @@
   become:
     true
   roles:
-    - nginx
-    - nat
-    - manala.logrotate
+    - role: nginx
+    - role: nat
+    - role: manala.logrotate
+      manala_logrotate_configs:
+        - file: nginx
+          config:
+            - /var/log/nginx/*.log:
+              - size: 100M
+              - missingok
+              - rotate: 5
+              - compress
+              - delaycompress:
+              - notifempty
+              - create: 0640 www-data adm
+              - sharedscripts 
+              - daily
+              - postrotate
+                  systemctl reload nginx.service
+              - endscript
