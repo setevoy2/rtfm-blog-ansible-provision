@@ -33,4 +33,4 @@
       unattended_automatic_reboot: true
       unattended_automatic_reboot_time: 05:00
       unattended_clean_interval: 10
-
+    - role: common
