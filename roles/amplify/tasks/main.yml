@@ -1,0 +1,49 @@
+- name: Add the NGINX Apt signing key
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: Add NGINX Amplify repository
+  apt_repository:
+    repo: deb http://packages.amplify.nginx.com/debian/ stretch amplify-agent
+    state: present
+
+- name: Install Amplify agent
+  apt:
+    name: nginx-amplify-agent
+    update_cache: yes
+
+- name: Copy default Amplify config
+  command: cp /etc/amplify-agent/agent.conf.default /etc/amplify-agent/agent.conf
+
+- name: Add Amplify API key
+  lineinfile:
+    path: /etc/amplify-agent/agent.conf
+    regexp: '^api_key ='
+    line: 'api_key = {{ api_key }}'
+
+- name: Add hostname for Amplify dashboard
+  lineinfile:
+    path: /etc/amplify-agent/agent.conf
+    regexp: '^hostname ='
+    line: 'hostname = {{ inventory_hostname }}'
+
+- name: Start Amplify service
+  systemd:
+    name: amplify-agent
+    state: started
+
+- name: Enable Amplify service 
+  systemd:
+    name: amplify-agent
+    enabled: yes
+
+- name: Copy stub_status.conf
+  copy:
+    src: files/stub_status.conf
+    dest: /etc/nginx/conf.d/stub_status.conf
+
+- name: Reload NGINX service
+  systemd:
+    name: nginx
+    state: reloaded
