@@ -2,13 +2,14 @@
   become:
     true
   roles:
-    - role: thefinn93.letsencrypt
-      letsencrypt_email: notify@setevoy.kiev.ua
-      letsencrypt_cert_domains: 
-        - "{{ inventory_hostname }}"
-      letsencrypt_webroot_path: /var/www/html/
-      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
+#    - role: thefinn93.letsencrypt
+#      letsencrypt_email: notify@setevoy.kiev.ua
+#      letsencrypt_cert_domains: 
+#        - "{{ inventory_hostname }}"
+#      letsencrypt_webroot_path: /var/www/html/
+#      letsencrypt_renewal_command_args: '--renew-hook "systemctl restart nginx"'
     - role: nginx
+    - role: amplify
     - role: nat
     - role: manala.logrotate
       manala_logrotate_configs:
