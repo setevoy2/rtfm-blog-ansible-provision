@@ -16,4 +16,4 @@
 - name: Service NGINX reload
   service: 
     name=nginx 
-    state=reloaded
+    state=restarted
