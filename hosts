@@ -1,8 +1,11 @@
-[rtfm-dev-bastion]
+[rtfm-bastion-dev]
 dev.rtfm.co.ua
 
-[rtfm-dev-db]
+[rtfm-bastion-dev:vars]
+data-volume-id="vol-0fc9af657fd7c35c9"
+
+[rtfm-db-dev]
 db.dev.rtfm.co.ua
 
-[rtfm-dev-db:vars]
+[rtfm-db-dev:vars]
 ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q admin@dev.rtfm.co.ua -i {{ host_key }}"'
