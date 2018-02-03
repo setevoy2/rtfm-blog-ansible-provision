@@ -1,3 +1,10 @@
+- name: Create "{{ data_volume_mount_path }}" directory
+  file:
+    path: "{{ data_volume_mount_path }}"
+    state: directory
+    mode: 0755
+    recurse: yes
+
 - name: Mount data-volume "{{ data_volume_id }}" to "{{ data_volume_mount_path }}"
   mount:
     path: "{{ data_volume_mount_path }}"
