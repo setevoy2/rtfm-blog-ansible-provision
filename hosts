@@ -1,2 +1,8 @@
-[rtfm-dev]
+[rtfm-dev-bastion]
 dev.rtfm.co.ua
+
+[rtfm-dev-db]
+db.dev.rtfm.co.ua
+
+[rtfm-dev-db:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q admin@dev.rtfm.co.ua -i {{ host_key }}"'
