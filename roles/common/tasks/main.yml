@@ -1,3 +1,10 @@
+- name: Mount data-volume "{{ data_volume_id }}" to "{{ data_volume_mount_path }}"
+  mount:
+    path: "{{ data_volume_mount_path }}"
+    src: "{{ data_volume_id }}"
+    state: mounted
+    fstype: ext4
+
 - name: Install common packages
   apt: name={{item}} state=present
   with_items:
