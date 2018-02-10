@@ -6,6 +6,7 @@ dev.rtfm.co.ua
 
 [rtfm-bastion-dev:vars]
 data_volume_id="/dev/xvdb1"
+hostname="dev"
 
 [rtfm-db-dev]
 db.dev.rtfm.co.ua
