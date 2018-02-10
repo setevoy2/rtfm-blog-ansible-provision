@@ -3,6 +3,7 @@
     true
   roles:
     - role: common
+    - role: letsencrypt
 #    - role: thefinn93.letsencrypt
 #      letsencrypt_email: notify@setevoy.kiev.ua
 #      letsencrypt_cert_domains: 
