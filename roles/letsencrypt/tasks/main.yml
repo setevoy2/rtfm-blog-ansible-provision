@@ -1,0 +1,16 @@
+- name: Create Let's Encrypt directory
+  file:
+    path={{ data_volume_mount_path }}/letsencrypt
+    state=directory
+
+- name: Install Let's Encrypt client
+  apt:
+    name=letsencrypt
+    state=latest
+
+- name: Add Let's Encrypt cronjob for cert renewal
+  cron:
+    name: letsencrypt_renewal
+    special_time: weekly
+    job: letsencrypt --config-dir {{ data_volume_mount_path }}/letsencrypt/ renew &> > /var/log/letsencrypt/letsencrypt.log && service nginx reload
+
