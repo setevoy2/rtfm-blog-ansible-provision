@@ -3,6 +3,7 @@
     true
   roles:
     - role: common
+    - role: exim
     - role: letsencrypt
     - role: nginx
     - role: amplify
