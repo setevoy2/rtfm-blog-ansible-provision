@@ -8,10 +8,15 @@
     src=templates/nginx.conf
     dest=/etc/nginx/nginx.conf
 
-- name: Add NGINX {{ inventory_hostname }} virtualhost config
-  template:
-    src=templates/virtualhosts/{{ inventory_hostname }}.conf
-    dest=/etc/nginx/conf.d/{{ inventory_hostname }}.conf
+- name: Generate dhparams
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    creates: /etc/nginx/dhparams.pem
+
+#- name: Add NGINX {{ inventory_hostname }} virtualhost config
+#  template:
+#    src=templates/virtualhosts/{{ inventory_hostname }}.conf
+#    dest=/etc/nginx/conf.d/{{ inventory_hostname }}.conf
 
 - name: Service NGINX reload
   service: 
