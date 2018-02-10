@@ -17,3 +17,21 @@
   with_items:
        - mailutils
        - curl
+
+- name: Set hostname
+  hostname:
+    name: "{{ set_hostname }}"
+
+- name: Add hostnams to /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127\.0\.0\.1[ \t]+localhost'
+    line: "127.0.0.1 localhost {{ set_hostname }} {{ inventory_hostname }}"
+    state: present
+
+- name: Update /etc/cloud/cloud.cfg.d/01_debian_cloud.cfg
+  lineinfile:
+    dest: /etc/cloud/cloud.cfg.d/01_debian_cloud.cfg
+    regexp: '^manage_etc_hosts: true'
+    line: "manage_etc_hosts: false"
+    state: present
