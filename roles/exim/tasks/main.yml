@@ -1,0 +1,18 @@
+- name: Update Exim4 settings
+  template:
+    src=templates/update-exim4.conf.conf.j2
+    dest=/etc/exim4/update-exim4.conf.conf
+
+- name: Update mailname
+  template:
+    src=templates/mailname.j2
+    dest=/etc/mailname
+
+- name: Exim4 restart
+  service:
+    name=exim4
+    state=restarted
+
+- name: Send test email
+  shell:
+    echo "Eximt4 config complete" | mailx -s "{{ inventory_hostname }} Exim4 test"  notify@setevoy.kiev.ua
