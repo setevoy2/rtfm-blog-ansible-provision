@@ -93,13 +93,13 @@
   timezone:
     name: Europe/Kiev
 
-#- name: Change root mailbox
-#  lineinfile:
-#    dest: /etc/aliases
-#    regexp: '^root: '
-#    line: "root: root@{{ inventory_hostname }}"
-#    state: present
+- name: Change root mailbox
+  lineinfile:
+    dest: /etc/aliases
+    regexp: '^root: '
+    line: "root: {{ notify_email }}"
+    state: present
  
-#- name: Update mail aliases
-#  shell:
-#    newaliases
+- name: Update mail aliases
+  shell:
+    newaliases
