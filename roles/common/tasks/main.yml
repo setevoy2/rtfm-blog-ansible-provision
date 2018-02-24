@@ -55,3 +55,35 @@
   systemd:
     name: reboot-notify
     enabled: yes
+
+- name: Copy .bashrc to root
+  copy:
+    src: files/bashrc
+    dest: /root/.bashrc
+
+- name: Set username color in /root/.bashrc
+  replace:
+    path: /root/.bashrc
+    regexp: 'COLOR'
+    replace: '31'
+
+- name: Copy .bashrc to admin
+  copy:
+    src: files/bashrc
+    dest: /home/admin/.bashrc
+
+- name: Set username color in /home/admin/.bashrc
+  replace:
+    path: /home/admin/.bashrc
+    regexp: 'COLOR'
+    replace: '32'
+
+- name: Copy .vimrc to root
+  copy:
+    src: files/vimrc
+    dest: /root/.vimrc
+
+- name: Copy .vimrc to admin
+  copy:
+    src: files/vimrc
+    dest: /home/admin/.vimrc
