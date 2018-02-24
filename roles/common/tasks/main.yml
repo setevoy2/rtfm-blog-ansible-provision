@@ -17,6 +17,7 @@
   with_items:
        - mailutils
        - curl
+       - dnsutils
 
 - name: Set hostname
   hostname:
@@ -87,3 +88,7 @@
   copy:
     src: files/vimrc
     dest: /home/admin/.vimrc
+
+- name: Set timezone to Europe/Kiev
+  timezone:
+    name: Europe/Kiev
