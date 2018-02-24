@@ -35,3 +35,23 @@
     regexp: '^manage_etc_hosts: true'
     line: "manage_etc_hosts: false"
     state: present
+
+- name: Add restart notify script
+  template:
+    src=templates/reboot_notify.sh.j2
+    dest=/usr/local/bin/reboot_notify.sh
+
+- name: Changing reboot_notify.sh permissions
+  file: 
+    dest: /usr/local/bin/reboot_notify.sh
+    mode: u+x
+
+- name: Copy restart notify systemd file
+  copy:
+    src: files/reboot-notify.service
+    dest: /usr/lib/systemd/system/reboot-notify.service
+
+- name: Systemd enable restart notifications
+  systemd:
+    name: reboot-notify
+    enabled: yes

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+EMAIL="{{ notify_email }}"
+start_or_stop=$1
+
+to_stop () {
+    echo "stop"
+    echo "$HOSTNAME going to shutdown at $(date)" | /usr/bin/mailx -s "$HOSTNAME going to shutdown" $EMAIL
+}
+
+to_start () {
+    echo "start"
+    echo "$HOSTNAME started at $(date)" | /usr/bin/mailx -s "$HOSTNAME started" $EMAIL
+}
+
+if [ $start_or_stop == "stop" ]; then
+    to_stop
+else
+    to_start
+fi

@@ -3,6 +3,7 @@
     true
   roles:
     - role: common
+      notify_email: notify@setevoy.kiev.ua
     - role: exim
     - role: letsencrypt
     - role: nginx
