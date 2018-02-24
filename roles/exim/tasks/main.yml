@@ -8,6 +8,13 @@
     src=templates/mailname.j2
     dest=/etc/mailname
 
+- name: Change root FROM address
+  lineinfile:
+    dest: /etc/email-addresses
+    regexp: '^root: '
+    line: "root: root@{{ inventory_hostname }}"
+    state: present
+
 - name: Exim4 restart
   service:
     name=exim4

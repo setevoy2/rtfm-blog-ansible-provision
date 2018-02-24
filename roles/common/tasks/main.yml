@@ -23,7 +23,7 @@
   hostname:
     name: "{{ set_hostname }}"
 
-- name: Add hostnams to /etc/hosts
+- name: Add hostname to /etc/hosts
   lineinfile:
     dest: /etc/hosts
     regexp: '^127\.0\.0\.1[ \t]+localhost'
@@ -42,7 +42,7 @@
     src=templates/reboot_notify.sh.j2
     dest=/usr/local/bin/reboot_notify.sh
 
-- name: Changing reboot_notify.sh permissions
+- name: Change reboot_notify.sh permissions
   file: 
     dest: /usr/local/bin/reboot_notify.sh
     mode: u+x
@@ -92,3 +92,14 @@
 - name: Set timezone to Europe/Kiev
   timezone:
     name: Europe/Kiev
+
+#- name: Change root mailbox
+#  lineinfile:
+#    dest: /etc/aliases
+#    regexp: '^root: '
+#    line: "root: root@{{ inventory_hostname }}"
+#    state: present
+ 
+#- name: Update mail aliases
+#  shell:
+#    newaliases
