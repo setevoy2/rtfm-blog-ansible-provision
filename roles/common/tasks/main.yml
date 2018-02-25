@@ -55,6 +55,11 @@
     src: files/reboot-notify.service
     dest: /usr/lib/systemd/system/reboot-notify.service
 
+- name: Start notify service
+  service: 
+    name: reboot-notify
+    state: started
+
 - name: Systemd enable restart notifications
   systemd:
     name: reboot-notify
