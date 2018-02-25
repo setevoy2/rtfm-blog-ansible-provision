@@ -37,33 +37,32 @@
     line: "manage_etc_hosts: false"
     state: present
 
-#- name: Add restart notify script
-#  template:
-#    src=templates/reboot_notify.sh.j2
-#    dest=/usr/local/bin/reboot_notify.sh
+- name: Add restart notify script
+  template:
+    src=templates/reboot_notify.sh.j2
+    dest=/usr/local/bin/reboot_notify.sh
 
-#- name: Change reboot_notify.sh permissions
-#  file: 
-#    dest: /usr/local/bin/reboot_notify.sh
-#    mode: u+x
+- name: Change reboot_notify.sh permissions
+  file: 
+    dest: /usr/local/bin/reboot_notify.sh
+    mode: u+x
 
-#- name: Create systemd-services dir
-#  file: path=/usr/lib/systemd/system state=directory
+- name: Create systemd-services dir
+  file: path=/usr/lib/systemd/system state=directory
 
-#- name: Copy restart notify systemd file
-#  copy:
-#    src: files/reboot-notify.service
-#    dest: /usr/lib/systemd/system/reboot-notify.service
+- name: Copy restart notify systemd file
+  copy:
+    src: files/reboot-notify.service
+    dest: /usr/lib/systemd/system/reboot-notify.service
 
-#- name: Start notify service
-#  service: 
-#    name: reboot-notify
-#    state: started
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
 
-#- name: Systemd enable restart notifications
-#  systemd:
-#    name: reboot-notify
-#    enabled: yes
+- name: Systemd enable restart notifications
+  systemd:
+    name: reboot-notify
+    enabled: yes
 
 - name: Copy .bashrc to root
   copy:
