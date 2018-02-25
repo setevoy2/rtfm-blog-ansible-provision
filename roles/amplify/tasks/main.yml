@@ -38,12 +38,23 @@
     name: amplify-agent
     enabled: yes
 
+- name: Check /etc/nginx/conf.d directory
+  stat: 
+    path: /etc/nginx/conf.d
+  register: nginx_conf_d
+
+- debug:
+    msg: "/etc/nginx/conf.d found"
+  when:  nginx_conf_d.stat.islnk is defined
+
 - name: Copy stub_status.conf
   copy:
     src: files/stub_status.conf
     dest: /etc/nginx/conf.d/stub_status.conf
+  when: nginx_conf_d.stat.islnk is defined
 
 - name: Reload NGINX service
   systemd:
     name: nginx
     state: reloaded
+  when: nginx_conf_d.stat.islnk is defined
