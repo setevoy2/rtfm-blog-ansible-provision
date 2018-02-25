@@ -1,0 +1,30 @@
+- hosts: all
+  become:
+    true
+  roles:
+    - role: common
+      notify_email: notify@setevoy.kiev.ua
+    - role: exim
+    - role: amplify
+    - role: manala.logrotate
+      manala_logrotate_configs:
+        - file: mysql
+          config:
+            - /var/log/mysql/*.log:
+              - size: 100M
+              - missingok
+              - rotate: 5
+              - compress
+              - delaycompress:
+              - notifempty
+              - create: 0640 mysql root
+              - sharedscripts 
+              - daily
+              - postrotate
+                  systemctl reload mysql.service
+              - endscript
+    - role: jnv.unattended-upgrades
+      unattended_mail: notify@setevoy.kiev.ua
+      unattended_automatic_reboot: true
+      unattended_automatic_reboot_time: 05:00
+      unattended_clean_interval: 10
