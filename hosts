@@ -8,6 +8,14 @@ dev.rtfm.co.ua
 data_volume_id="/dev/xvdb1"
 set_hostname="rtfm-bastion-dev"
 
+[rtfm-services-dev]
+services.dev.rtfm.co.ua
+
+[rtfm-services-dev:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q admin@dev.rtfm.co.ua -i {{ host_key }}"'
+data_volume_id="/dev/xvdb1"
+set_hostname="rtfm-services-dev"
+
 [rtfm-db-dev]
 db.dev.rtfm.co.ua
 
