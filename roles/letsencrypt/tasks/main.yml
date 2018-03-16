@@ -12,5 +12,5 @@
   cron:
     name: letsencrypt_renewal
     special_time: weekly
-    job: letsencrypt --config-dir {{ data_volume_mount_path }}/letsencrypt/ renew &> > /var/log/letsencrypt/letsencrypt.log && service nginx reload
+    job: letsencrypt --config-dir {{ data_volume_mount_path }}/letsencrypt/ renew & > /var/log/letsencrypt/letsencrypt.log && service nginx reload
 
