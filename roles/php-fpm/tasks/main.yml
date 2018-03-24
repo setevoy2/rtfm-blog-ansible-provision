@@ -1,0 +1,29 @@
+- name: Install PHP related packages
+  apt: name={{item}} state=present
+  with_items:
+       - php
+       - php-mysql 
+       - php-fpm
+       - php-curl
+
+- name: Create PHP-FPM users
+  user: name={{ item }}
+  with_items:
+    - "{{ php_users }}"
+
+- name: Create PHP-FPM logs directory
+  file:
+    path=/var/log/php
+    state=directory
+
+- name: Add /data/data-php-fpm.d/ to /etc/php/7.0/fpm/php-fpm.conf
+  lineinfile:
+    dest: /etc/php/7.0/fpm/php-fpm.conf
+    insertafter: '^include=/etc/php/7.0/fpm/pool.d/*.conf'
+    line: 'include=/data/data-php-fpm.d/*.conf'
+    state: present
+
+- name: php7.0-fpm restart
+  service:
+    name=php7.0-fpm
+    state=restarted

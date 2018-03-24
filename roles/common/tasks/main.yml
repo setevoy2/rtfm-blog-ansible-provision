@@ -18,6 +18,8 @@
        - mailutils
        - curl
        - dnsutils
+       - telnet
+       - unzip
 
 - name: Set hostname
   hostname:
